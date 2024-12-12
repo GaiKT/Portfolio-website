@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { motion } from 'motion/react';
 
 export interface CardProps {
@@ -21,11 +21,11 @@ export default function Card(item: CardProps) {
     <>
       <motion.button
        whileHover={{ scale: 0.98}}
-       className="p-4 text-start rounded-md shadow-accent shadow-md bg-gray-700 text-blue-500 text-base">
+       className="p-4 text-start rounded-md shadow-accent shadow-md bg-base-content text-blue-500 text-base">
         <h1 className="text-2xl font-bold mb-5 text-secondary">{item.projectName}</h1>
             <p className="mb-4">{item.overView}</p>
             <div>
-              <h2 className="text-xl font-semibold mb-5 text-primary">Key Features</h2>
+              <h2 className="text-xl font-semibold mb-5 text-base-100">Key Features</h2>
               <ul className="list-disc pl-5">
                 {Object.entries(item.keyFeatures).map(([key, value], index) => (
                   <li key={index} className="mb-1">
@@ -35,7 +35,7 @@ export default function Card(item: CardProps) {
               </ul>
             </div>
             <div>
-              <h2 className="text-xl font-semibold my-5 text-primary">Tech Stack</h2>
+              <h2 className="text-xl font-semibold my-5 text-base-100">Tech Stack</h2>
               <ul className="list-disc pl-5">
                 {Object.entries(item.techStack).map(([key, value], index) => (
                   <li key={index} className="mb-1">

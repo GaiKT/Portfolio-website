@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useRef, FormEvent , useEffect } from "react";
-import { containerVariantBottom , containerVariantTop , containerVariantLeft , containerVariantRight} from '@/app/utils/variant'
+import React, { useRef, FormEvent , useEffect , useState } from "react";
+import { containerVariantRight} from '@/app/utils/variant'
 import emailjs from "emailjs-com";
-import { motion, useAnimation, useInView } from 'motion/react';
+import { motion, useAnimation, useInView, AnimatePresence } from 'motion/react';
 import { IoIosMail , IoIosSend  } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 
@@ -11,6 +11,7 @@ export const ContactForm: React.FC = () => {
     const ref = useRef(null);
     const inView = useInView(ref, { once: true });
     const controls = useAnimation();
+    const [toast, setToast] = useState<{ type: "success" | "error"; message: string } | null>(null);
   
     useEffect(() => {
       if (inView) {
@@ -36,15 +37,19 @@ export const ContactForm: React.FC = () => {
         .then(
           (result) => {
             console.log("Email sent:", result.text);
+            setToast({ type: "success", message: "Email sent:" + result.text });
           },
           (error) => {
             console.error("Email error:", error.text);
+            setToast({ type: "error", message: "Failed to send email. Please try again." });
           }
         );
     }
   };
 
   return (
+    <>
+    
     <motion.form ref={form} onSubmit={sendEmail}
     variants={containerVariantRight}
     initial="hidden"
@@ -83,6 +88,24 @@ export const ContactForm: React.FC = () => {
           </div>
         </motion.div>
     </motion.form>
+
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.5 }}
+            className={`absolute bottom-4 right-4 p-4 rounded shadow-md text-white ${
+              toast.type === "success" ? "bg-green-500" : "bg-red-500"
+            }`}
+          >
+            {toast.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
