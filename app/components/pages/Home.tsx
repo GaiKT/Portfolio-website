@@ -8,7 +8,7 @@ import { motion, useAnimation, useInView } from 'motion/react';
 import { FaDownload } from 'react-icons/fa6';
 import Profile from '@/public/profile.jpg'
 import { RiDoubleQuotesL , RiDoubleQuotesR } from "react-icons/ri";
-import { containerVariantBottom , containerVariantTop , containerVariantLeft , containerVariantRight , itemVariant } from '@/app/utils/variant'
+import { containerVariantBottom , containerVariantTop , containerVariantLeft , containerVariantRight } from '@/app/utils/variant'
 
 export default function Home() {
   const ref = useRef(null);
