@@ -2,6 +2,10 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <div className='text-center text-gray-500 opacity-60'> copyright 2024.</div>
+    <footer className="footer text-accent bg-primary items-center justify-center p-4">
+      <aside className="grid-flow-col items-center">
+        <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
+      </aside>
+    </footer>
   )
 }

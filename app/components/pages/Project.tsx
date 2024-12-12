@@ -1,52 +1,72 @@
+'use client';
+
 import React from 'react'
+import { motion, useAnimation, useInView } from 'motion/react';
+import { useEffect, useRef } from 'react';
+import { RiDoubleQuotesL , RiDoubleQuotesR } from "react-icons/ri";
+import Card from '../Card';
+
+import { containerVariantTop , containerVariantLeft , containerVariantRight , itemVariant } from '@/app/utils/variant'
+
+import { items } from "@/app/utils/projectData";
 
 export default function Project() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true }); // Trigger animation only once
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start('visible');
+    } else {
+      controls.start('hidden');
+    }
+  }, [inView, controls]);
+
   return (
-    <div className='min-h-screen flex flex-col justify-around'>.
-      <div className='text-center'>
-        <h1 className='text-4xl font-extrabold text-blue-800 mb-5'> MY PROJECT</h1>
-        <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima saepe alias fugiat, maiores culpa dicta repellendus? Unde nihil dolore nemo illo, beatae quam sequi harum odio expedita libero aliquid veritatis?</p>
+    <div className='min-h-screen flex flex-col items-center gap-10 pt-24'>
+      <div className='text-center mx-5'>
+        <motion.h1 
+        ref={ref}
+        variants={containerVariantTop}
+        initial="hidden"
+        animate={controls} 
+        className='text-6xl font-extrabold text-accent mb-5'> MY PROJECT</motion.h1>
+        <motion.p 
+        ref={ref}
+        variants={containerVariantRight}
+        initial="hidden"
+        animate={controls} 
+        className='flex gap-2 justify-center'
+        > <RiDoubleQuotesL/>Turning Ideas into Reality 🚀<RiDoubleQuotesR/>
+        </motion.p>
+        <motion.span
+        ref={ref}
+        variants={containerVariantLeft}
+        initial="hidden"
+        animate={controls} 
+        className='text-base'> Dive into a showcase of projects that reflect passion, innovation, and problem-solving. </motion.span>
       </div>
-      <div>
-        <div className="carousel w-full">
-          <div id="slide1" className="carousel-item relative w-full">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
-              className="w-full" />
-            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-              <a href="#slide4" className="btn btn-circle">❮</a>
-              <a href="#slide2" className="btn btn-circle">❯</a>
-            </div>
-          </div>
-          <div id="slide2" className="carousel-item relative w-full">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
-              className="w-full" />
-            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-              <a href="#slide1" className="btn btn-circle">❮</a>
-              <a href="#slide3" className="btn btn-circle">❯</a>
-            </div>
-          </div>
-          <div id="slide3" className="carousel-item relative w-full">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
-              className="w-full" />
-            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-              <a href="#slide2" className="btn btn-circle">❮</a>
-              <a href="#slide4" className="btn btn-circle">❯</a>
-            </div>
-          </div>
-          <div id="slide4" className="carousel-item relative w-full">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
-              className="w-full" />
-            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-              <a href="#slide3" className="btn btn-circle">❮</a>
-              <a href="#slide1" className="btn btn-circle">❯</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <motion.div
+        ref={ref}
+        variants={containerVariantLeft}
+        initial="hidden"
+        animate={controls} 
+        className='grid grid-cols-2 max-md:grid-cols-1 gap-5 p-5 w-full'>
+        {
+        items.map((item , i)=>{
+          return(
+            <motion.div
+            key={i}
+            variants={itemVariant}
+            className='cursor-pointer'
+            >
+              <Card key={item.id} {...item} />
+            </motion.div>
+          );
+        })
+        }
+      </motion.div>
     </div>
   )
 }

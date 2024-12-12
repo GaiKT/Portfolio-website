@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
+import { LuTextCursor } from "react-icons/lu";
 
 export default function TextTyping() {
-    const texts = ["Full Stack", "Front End", "Back End"];
+    const texts = ["Full-Stack", "Front-End", "Back-End"];
     const [currentTextIndex, setCurrentTextIndex] = useState(0);
     const [displayText, setDisplayText] = useState("");
   
@@ -24,7 +25,7 @@ export default function TextTyping() {
           setTimeout(() => {
             setDisplayText("");
             setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
-          }, 3000); // เว้น 0.5 วินาทีก่อนเริ่มข้อความถัดไป
+          }, 3000); // เว้น 3 วินาทีก่อนเริ่มข้อความถัดไป
         }
       }, 100);
   
@@ -33,10 +34,10 @@ export default function TextTyping() {
 
     return (
         <motion.p
-        className='text-4xl font-extrabold h-10'
+        className='text-7xl font-extrabold text-secondary flex'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 1 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
         >
         {displayText.split("").map((char, index) => (
           <motion.span
@@ -48,6 +49,15 @@ export default function TextTyping() {
             {char}
           </motion.span>
         ))}
+          <motion.span 
+          animate={{ opacity: [1, 0] }}
+          transition={{
+            delay: 1,
+            duration : 1 ,
+            repeat: Infinity,
+          }}
+          className='text-7xl text-black font-extralight'> <LuTextCursor/>
+          </motion.span>
         </motion.p>
     )
 }

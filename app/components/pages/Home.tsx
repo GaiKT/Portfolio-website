@@ -1,60 +1,96 @@
 'use client';
 
-import React from 'react';
+import React , {useEffect, useRef} from 'react';
 import CardMotion from '../CardMotion';
 import TextTyping from '../TextTyping';
 import Link from 'next/link';
-import { motion } from 'motion/react';
+import { motion, useAnimation, useInView } from 'motion/react';
 import { FaDownload } from 'react-icons/fa6';
+import Profile from '@/public/profile.jpg'
+import { RiDoubleQuotesL , RiDoubleQuotesR } from "react-icons/ri";
+import { containerVariantBottom , containerVariantTop , containerVariantLeft , containerVariantRight , itemVariant } from '@/app/utils/variant'
 
 export default function Home() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true }); 
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start('visible');
+    } else {
+      controls.start('hidden');
+    }
+  }, [inView, controls]);
+
   return (
-    <div className='min-h-screen flex max-md:flex-col'>
-      <div className='absolute top-0 left-0 h-full w-full z-0'>
-        <div className='absolute left-1/2 bottom-2 w-52 h-52 rounded-full bg-blue-100 flex justify-center items-center max-md:hidden'></div>
-        <div className='absolute left-1/3 bottom-20 w-16 h-16 rounded-full bg-blue-200'></div>
-        <div className='absolute left-2/3 top-28 w-8 h-8 rounded-full bg-blue-200'></div>
-        <div className='absolute top-28 right-5 w-80 h-80 rounded-full bg-blue-100'></div>
-        <div className='absolute top-10 left-[-150px] w-80 h-80 rounded-full bg-blue-100'></div>
-        <div className='absolute top-30 right-9 w-60 h-60 rounded-full bg-blue-100'></div>
-      </div>
-      <div className='flex-1 flex justify-center items-center z-10'>
-        <div className='lg:w-3/4 text-lg flex flex-col gap-5 p-5'>
-          Hello I am
-          <p className='text-2xl font-extrabold text-blue-900'>Natthapong Kamtong</p>
+    <div className='min-h-screen flex max-md:flex-col pt-20'>
+      <div className='md:w-4/6 flex justify-center items-center z-10 relative'>
+        <div className='lg:w-3/4 h-2/3  flex flex-col gap-5 p-5 pl-5'>
+          <motion.p 
+          ref={ref}
+          variants={containerVariantTop}
+          initial="hidden"
+          animate={controls}                
+          >Hello I am</motion.p>
+          <motion.p 
+          ref={ref}
+          variants={containerVariantLeft}
+          initial="hidden"
+          animate={controls}         
+          className='text-6xl font-extrabold text-accent'>Natthapong Kamtong</motion.p>
             <TextTyping/>
-          <p className='text-4xl font-extrabold h-10 ml-20'>
+          <motion.p 
+          ref={ref}
+          variants={containerVariantRight}
+          initial="hidden"
+          animate={controls}      
+            className='text-7xl font-extrabold h-16 ml-20 text-[#fca311]'>
             Developer
-          </p>
-          <p>
-            <span className='ml-16 mr-2'>
-              I'm a passionate and skilled web developer
-            </span>
-            I'm fast-learning, full-stack software developer with a strong foundation in modern web technologies, 
-            with real-world experience from personal projects.
-          </p>
-          <div className='flex justify-center gap-5'>
+          </motion.p>
+          <motion.p 
+          ref={ref}
+          variants={containerVariantBottom}
+          initial="hidden"
+          animate={controls}
+          className='flex gap-1 justify-center'
+          >
+            <RiDoubleQuotesL/> No one can go back to restart, but can make a brand new ending. <RiDoubleQuotesR/>
+          </motion.p>
+          <div className='flex justify-center gap-5 mt-5'>
             <motion.button   
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              className='bg-green-900 hover:bg-green-400 p-2 rounded shadow-md text-gray-50'>
-            <Link href="#contact" className='flex gap-2 items-center'> <FaDownload/> Download resume </Link>
+              ref={ref}
+              variants={containerVariantBottom}
+              initial="hidden"
+              animate={controls}          
+              transition={{ type: "spring", stiffness: 400, damping: 10 , duration: 1 }}
+              className='bg-[#4f772d] hover:bg-[#90a955] p-2 rounded shadow-md text-gray-50 text-lg'>
+              <Link href="https://drive.google.com/file/d/1AI1nTXkD-J9rcU8CtP1j2xCC7P3ocq_4/view?usp=drive_link" target="_blank" className='flex gap-2 items-center'> <FaDownload/> Download resume </Link>
             </motion.button>
             <motion.button   
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              className='bg-blue-900 hover:bg-blue-200 w-24 p-2 rounded shadow-md text-gray-50'>
+              ref={ref}
+              variants={containerVariantRight}
+              initial="hidden"
+              animate={controls}   
+              transition={{ type: "spring", stiffness: 400, damping: 10 , duration: 1 }}
+              className='bg-blue-900 hover:bg-blue-200 p-2 rounded shadow-md text-gray-50 text-lg'>
             <Link href="#contact"> Hire Me! </Link>
             </motion.button>
           </div>
         </div>
       </div>
-      <div className='flex-1 z-10'>
-        <div className='mt-20 ml-20'>
-          <CardMotion/>
-        </div>
+      <div className='md:w-2/6 z-10 flex justify-start max-md:justify-center items-center'>
+        <motion.div 
+          initial={{ y: -30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 30, opacity: 0 }}    
+          transition={{ duration: 1 }}>
+          <CardMotion image={Profile} hight={500} width={350}/>
+        </motion.div>
       </div>
     </div>
   );

@@ -1,40 +1,61 @@
-import React from 'react'
+'use client';
+
+import React , {useEffect, useRef} from 'react';
+import { motion, useAnimation, useInView } from 'motion/react';
+import { containerVariantBottom , containerVariantTop , containerVariantLeft , containerVariantRight} from '@/app/utils/variant'
+import GaiOnLaptop from '@/public/GaiOnLabtop.jpg'
+import CardMotion from '../CardMotion';
+import { RiDoubleQuotesL , RiDoubleQuotesR } from "react-icons/ri";
+import ContactForm from '../ContactForm';
+
 
 export default function Contact() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start('visible');
+    } else {
+      controls.start('hidden');
+    }
+  }, [inView, controls]);
+
   return (
-    <div className='min-h-screen bg-blue-200 flex flex-col justify-around'>
+    <div className='min-h-screen flex flex-col justify-around px-5'>
       <div className='text-center mt-20'>
-        <h1 className='text-4xl font-extrabold text-blue-800 mb-5'>CONTACT ME</h1>
-        <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima saepe alias fugiat, maiores culpa dicta repellendus? Unde nihil dolore nemo illo, beatae quam sequi harum odio expedita libero aliquid veritatis?</p>
+        <motion.h1 
+          ref={ref}
+          variants={containerVariantTop}
+          initial="hidden"
+          animate={controls}           
+          className='text-6xl font-extrabold text-accent mb-5'>CONTACT ME</motion.h1>
+         <motion.p 
+        ref={ref}
+        variants={containerVariantRight}
+        initial="hidden"
+        animate={controls} 
+        className='flex gap-2 justify-center'
+        > <RiDoubleQuotesL/>Get in Touch<RiDoubleQuotesR/>
+        </motion.p>
+        <motion.span
+        ref={ref}
+        variants={containerVariantLeft}
+        initial="hidden"
+        animate={controls} 
+        className='text-base'> Have a question or want to work together? I’d love to hear from you! </motion.span>
       </div>
       <div className='flex max-md:flex-col justify-center items-center'>
-        <div className='flex-1'>
-          img
-        </div>
-        <div className='flex-1 p-5'>
-          <div className='flex flex-col gap-5 lg:w-2/3'>
-            <label className="input input-bordered flex items-center gap-2">
-              <input type="text" className="grow" placeholder="Your name" />
-            </label>
-            <label className="input input-bordered flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                fill="currentColor"
-                className="h-4 w-4 opacity-70">
-                <path
-                  d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
-                <path
-                  d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
-              </svg>
-              <input type="text" className="grow" placeholder="Your Email" />
-            </label>
-            <textarea className="textarea textarea-bordered" rows={8} placeholder="Your Message"></textarea>
-            <div className='w-full flex justify-end'>
-              <button className='btn btn-success text-white w-1/2'>Send</button>
-            </div>
-          </div>
-        </div>
+        <motion.div 
+          ref={ref}
+          variants={containerVariantBottom}
+          initial="hidden"
+          animate={controls} 
+          className='md:w-1/3 flex justify-center items-center'>
+          <CardMotion image={GaiOnLaptop} hight={500} width={350}/>
+        </motion.div>
+        <ContactForm />
       </div>
     </div>
   )
