@@ -52,7 +52,7 @@ export default function Project() {
         variants={containerVariantLeft}
         initial="hidden"
         animate={controls} 
-        className='grid grid-cols-2 max-md:grid-cols-1 gap-5 p-5 w-full'>
+        className='grid grid-cols-2 max-lg:grid-cols-1 gap-5 p-5 w-full'>
         {
         items.map((item , i)=>{
           return(

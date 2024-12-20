@@ -10,6 +10,7 @@ export interface CardProps {
     BackEnd: string[];
     Database: string[];
   };
+  video_url : string;
 }
 
 
@@ -31,7 +32,8 @@ export const items: CardProps[] = [
           FrontEnd : ['React' , 'TailwindCSS' , 'Material UI' , 'Daisy UI'],
           BackEnd : ['Node' , 'Express' , 'Prisma ORM'],
           Database : ['PostgreSQL']
-        }
+      },
+      video_url : 'https://www.youtube.com/watch?v=IX3rzkha5O0'
     },
     {
       id: 2,
@@ -46,8 +48,8 @@ export const items: CardProps[] = [
           FrontEnd : ['React' , 'TailwindCSS' , 'Daisy UI'],
           BackEnd : ['Node' , 'Express' , 'Prisma ORM'],
           Database : ['PostgreSQL']
-      }
-      
+      },
+      video_url : 'https://www.youtube.com/watch?v=GNXuXi69AsE'
     },
     {
       id: 3,
@@ -62,8 +64,8 @@ export const items: CardProps[] = [
           FrontEnd : ['Next' , 'TailwindCSS' , 'Daisy UI'],
           BackEnd : ['Nest' , 'MongGoose'],
           Database : ['MongoDB']
-      }
-      
+      },
+      video_url : 'https://www.youtube.com/watch?v=k9Yk80HMQHE&feature=youtu.be'
     },
   ];
   

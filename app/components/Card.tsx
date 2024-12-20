@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'motion/react';
+import Preveiw from './Preveiw';
 
 export interface CardProps {
   id: number; 
@@ -13,17 +13,18 @@ export interface CardProps {
     BackEnd: string[];
     Database: string[];
   };
+  video_url : string;
 }
 
 export default function Card(item: CardProps) {
 
   return (
     <>
-      <motion.button
-       whileHover={{ scale: 0.98}}
-       className="p-4 text-start rounded-md shadow-accent shadow-md bg-base-content text-blue-500 text-base">
+      <div
+       className=" p-4 text-start rounded-md shadow-accent shadow-md bg-base-content text-blue-500 text-base">
         <h1 className="text-2xl font-bold mb-5 text-secondary">{item.projectName}</h1>
-            <p className="mb-4">{item.overView}</p>
+            <Preveiw video_url={item.video_url} project_name={item.projectName}/>
+            <p className="my-4">{item.overView}</p>
             <div>
               <h2 className="text-xl font-semibold mb-5 text-base-100">Key Features</h2>
               <ul className="list-disc pl-5">
@@ -44,7 +45,7 @@ export default function Card(item: CardProps) {
                 ))}
               </ul>
             </div>
-      </motion.button>
+      </div>
     </>
   );
 }

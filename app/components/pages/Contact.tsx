@@ -45,6 +45,12 @@ export default function Contact() {
         initial="hidden"
         animate={controls} 
         className='text-base'> Have a question or want to work together? I’d love to hear from you! </motion.span>
+        <motion.span
+        ref={ref}
+        variants={containerVariantLeft}
+        initial="hidden"
+        animate={controls} 
+        className='text-base block'> If you're interested in my profile, please fill out your information. The system will automatically send you an email along with my resume. </motion.span>
       </div>
       <div className='flex max-md:flex-col justify-center items-center'>
         <motion.div 

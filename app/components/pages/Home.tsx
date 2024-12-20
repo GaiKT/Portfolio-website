@@ -32,7 +32,7 @@ export default function Home() {
           variants={containerVariantTop}
           initial="hidden"
           animate={controls}                
-          >Hello I am</motion.p>
+          >Hello I am Gai</motion.p>
           <motion.p 
           ref={ref}
           variants={containerVariantLeft}
