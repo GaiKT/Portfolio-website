@@ -50,7 +50,7 @@ export default function Contact() {
         variants={containerVariantLeft}
         initial="hidden"
         animate={controls} 
-        className='text-base block'> If you're interested in my profile, please fill out your information. The system will automatically send you an email along with my resume. </motion.span>
+        className='text-base block'> If you’re interested in my profile, please fill out your information. The system will automatically send you an email along with my resume. </motion.span>
       </div>
       <div className='flex max-md:flex-col justify-center items-center'>
         <motion.div 
